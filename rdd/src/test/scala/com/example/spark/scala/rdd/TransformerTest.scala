@@ -28,7 +28,7 @@ class TransformerTest extends SparkTestEnv {
 
 
   @Test
-  def count: Unit = {
+  def testCount: Unit = {
     val nums = 1.to(100)
     val rdd = sc.parallelize(nums)
     val sum = rdd.reduce(_ + _)
@@ -37,11 +37,16 @@ class TransformerTest extends SparkTestEnv {
   }
 
   @Test
-  def testFlatmap: Unit = {
-    val rdd1: RDD[String] = sc.textFile(FILE_PATH + "english.txt")
-    println("size:" + rdd1.collect().size)
+  def testReduceByKey: Unit = {
+    val rdd1: RDD[String] = sc.textFile(FILE_PATH + "english.txt",3)
     rdd1.flatMap(line => line.split(" ")).map(word => (word, 1)).reduceByKey((x, y) => {
       x + y
     }).foreach(result => println(result._1 + "," + result._2))
+  }
+
+  @Test
+  def testGroupByKey: Unit = {
+    val rdd1: RDD[String] = sc.textFile(FILE_PATH + "english.txt",3)
+    rdd1.flatMap(line => line.split(" ")).map(word => (word, 1)).groupByKey().foreach(result => println(result._1 + "," + result._2))
   }
 }
