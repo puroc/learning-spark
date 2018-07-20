@@ -1,12 +1,11 @@
 package com.example.spark.scala.rdd
 
-import org.apache.spark.api.java.JavaSparkContext
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 import org.junit.{After, Assert, Before, Test}
 
 @Test
-class RddTest extends SparkTestEnv {
+class TransformerTest extends SparkTestEnv {
 
   private var sc: SparkContext = null
 
