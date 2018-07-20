@@ -28,6 +28,7 @@ public class PairRddActionTest extends SparkTestEnv {
     @After
     public void tearDown() throws Exception {
         ctx.close();
+
     }
 
     @Test
