@@ -26,7 +26,6 @@ class TransformerTest extends SparkTestEnv {
     sc.stop
   }
 
-
   @Test
   def testCount: Unit = {
     val nums = 1.to(100)
@@ -42,6 +41,14 @@ class TransformerTest extends SparkTestEnv {
     rdd1.flatMap(line => line.split(" ")).map(word => (word, 1)).reduceByKey((x, y) => {
       x + y
     }).foreach(result => println(result._1 + "," + result._2))
+  }
+
+  @Test
+  def testPrintDataOfEachPartition: Unit = {
+    val rdd1: RDD[String] = sc.textFile(FILE_PATH + "english.txt",3)
+    rdd1.flatMap(line => line.split(" ")).foreachPartition(p=>{
+      p.foreach(println(_))
+    })
   }
 
   @Test
