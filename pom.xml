@@ -15,6 +15,7 @@
         <module>streaming</module>
         <module>opentsdb</module>
         <module>learning-scala</module>
+        <module>timeseries</module>
     </modules>
 
    <!-- <build>
