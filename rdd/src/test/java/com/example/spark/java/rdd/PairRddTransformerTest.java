@@ -1,4 +1,4 @@
-package com.example.spark.scala.rdd;
+package com.example.spark.java.rdd;
 
 import com.example.spark.SparkTestEnv;
 import org.apache.spark.api.java.JavaPairRDD;

@@ -13,8 +13,6 @@
         <module>sql</module>
         <module>datasource</module>
         <module>streaming</module>
-        <module>opentsdb</module>
-        <module>learning-scala</module>
         <module>timeseries</module>
     </modules>
 
