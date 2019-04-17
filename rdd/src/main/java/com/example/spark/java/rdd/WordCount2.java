@@ -7,6 +7,7 @@ import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.api.java.function.VoidFunction;
+import org.apache.spark.storage.StorageLevel;
 import scala.Tuple2;
 
 import java.util.Arrays;
@@ -25,9 +26,9 @@ public final class WordCount2 {
 //    private static final String MASTER_IP = "spark://10.10.20.248:7077";
 
 
-    private static final String OUT_FILE_PATH = "/Users/puroc/Desktop/test1";
+    private static final String OUT_FILE_PATH = "/Users/puroc/IdeaProjects/learning-spark/out/rdd/wordcount";
 
-    private static final String FILE_PATH = "/Users/puroc/git/learning-spark/rdd/src/test/resources/english.txt";
+    private static final String FILE_PATH = "/Users/puroc/IdeaProjects/learning-spark/rdd/src/main/resources/english.txt";
 
     public static void main(String[] args) throws Exception {
 
@@ -53,14 +54,16 @@ public final class WordCount2 {
             }
         });
 
+        counts.persist(StorageLevel.MEMORY_AND_DISK());
+
         counts.foreach(new VoidFunction<Tuple2<String, Integer>>() {
             @Override
-            public void call(Tuple2<String, Integer> stringIntegerTuple2) throws Exception {
-                System.out.println(stringIntegerTuple2._1 + "," + stringIntegerTuple2._2);
+            public void call(Tuple2<String, Integer> tuple2) throws Exception {
+                System.out.println(tuple2._1 + "," + tuple2._2);
             }
         });
 
-//        counts.saveAsTextFile(OUT_FILE_PATH);
+        counts.saveAsTextFile(OUT_FILE_PATH);
 
         System.out.println("!!!!!!!!!!!");
 
